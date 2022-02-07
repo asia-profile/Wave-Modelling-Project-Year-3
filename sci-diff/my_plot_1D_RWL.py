@@ -16,6 +16,7 @@ This example can be compeared with this `Dedalus Project example <https://dedalu
 .io/en/latest/notebooks/dedalus_tutorial_problems_solvers.html>`_ where the same model is solved with
 pseudo-spectral method.
 """
+"those models here use finnite difference approximation in their class"
 
 # u t + u x + uu x - u txx = 0 which is equivalent to u t + u x + (½u²) x - u txx = 0
 import numpy as np

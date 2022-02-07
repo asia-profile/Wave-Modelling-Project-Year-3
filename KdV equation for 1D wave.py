@@ -22,10 +22,11 @@ def RK4Step(odefunc, t,w,h):
 #----- Constructing the grid -----
 L   = 2.
 nx  = 512
-x   = np.linspace(0.,L, nx+1)
+x   = np.linspace(0,L, nx+1)
 x   = x[:nx]
 
-kx1 = np.linspace(0,nx/2-1,nx/2)
+nx  = 512
+kx1 = np.linspace(0,(nx/2)-1,nx/2)
 kx2 = np.linspace(1,nx/2,  nx/2)
 kx2 = -1*kx2[::-1]
 kx  = (2.* np.pi/L)*np.concatenate((kx1,kx2))

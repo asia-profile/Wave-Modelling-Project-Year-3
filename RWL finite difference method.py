@@ -26,7 +26,7 @@ def polynomial_derivative(poly, dev):
 
 #function of pi
 def pi_function(pi, t):
-    pi = derivative(pi,t)
+    pi = polynomial_derivative(pi,t)
     return pi
 #function of f
 def f_function(a,b,pi,x,t):

@@ -23,7 +23,8 @@ import numpy as np
 import pylab as pl
 from skfdiff import Model, Simulation
 
-model = Model("-U + a*dxU - b * dxxU", "U(x)", ["a", "b"])
+#model = Model("-U + a*dxU - b * dxxU", "U(x)", ["a", "b"])
+model = Model("-dxU - a * U * dxU + b*dxxU ", "U(x)", ["a", "b"])
 
 x = np.linspace(-2, 6, 1000) #can start and mess a bit with numbers here, to see on accuracy and time complexity
 

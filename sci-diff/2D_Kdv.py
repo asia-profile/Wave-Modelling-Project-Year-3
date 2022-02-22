@@ -5,7 +5,8 @@ from skfdiff import Model, Simulation
 from scipy.ndimage import gaussian_filter
 import math
 
-shallow_2D = sf.Model("-U * dxU - e*(dxxxU + dxxxU-dyyU)", #write function here appropriately - is the last part good thou?
+
+shallow_2D = sf.Model("(-U * dxU + e*U*dxU + dxxxU)*dx - 3*dyyU", #write function here appropriately - is the last part good thou?
                       "U(x, y)", ["e"])
 
 x = np.linspace(-2, 6, 1000)

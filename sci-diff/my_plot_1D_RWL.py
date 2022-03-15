@@ -28,12 +28,12 @@ model = Model("-dxU - a * U * dxU + b*dxxU ", "U(x)", ["a", "b"])
 
 x = np.linspace(-2, 6, 1000) #can start and mess a bit with numbers here, to see on accuracy and time complexity
 
-n = 20
+n = 20 #n=40
 U = np.log(1 + np.cosh(n) ** 2 / np.cosh(n * x) ** 2) / (2 * n)
 
-initial_fields = model.fields_template(x=x, U=U, a=2e-4, b=1e-4)
+initial_fields = model.fields_template(x=x, U=U, a=2e-4, b=1e-4) #a=2e-4, b=1e-4)
 
-simulation = Simulation(model, initial_fields, dt=0.05, tmax=10)
+simulation = Simulation(model, initial_fields, dt=0.05, tmax=100) #tmax=10
 container = simulation.attach_container()
 
 simulation.run()

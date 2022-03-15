@@ -49,7 +49,7 @@ def filter_instabilities(simul):
     simul.fields["h"] = ("x",), savgol_filter(simul.fields["h"], 21, 4)
 
 
-x, dx = np.linspace(-5, 5, 1000, retstep=True)
+x, dx = np.linspace(-5, 5, 100, retstep=True)
 h = np.where(x < 0, 3, 1)
 u = x * 0
 
@@ -58,8 +58,8 @@ init_fields = shallow_water.Fields(x=x, h=h, u=u)
 simul = Simulation(
     shallow_water,
     t=0,
-    dt=0.02,
-    tmax=2,
+    dt=0.05, #dt=0.02
+    tmax=100, #tmax=2
     fields=init_fields,
     time_stepping=False,
     id="dambreak",
@@ -81,8 +81,8 @@ for i, t in enumerate(data.t):
     else:
         pl.sca(axs[i, 0])
     data.sel(t=t).h.plot(color="black", label="Sol.")
-    ref_data = pd.read_csv("valid_randall/dam_h%i.csv" % i)
-    pl.scatter(ref_data.x, ref_data.h, color="red", marker=".", label="Ref.")
+    #ref_data = pd.read_csv("valid_randall/dam_h%i.csv" % i)
+    #pl.scatter(ref_data.x, ref_data.h, color="red", marker=".", label="Ref.")
     pl.title("")
     pl.ylabel(r"$h$")
     pl.xlim(-5, 5)
@@ -94,8 +94,8 @@ for i, t in enumerate(data.t):
     else:
         pl.sca(axs[i, 1])
     (data.sel(t=t).h * data.sel(t=t).u).plot(color="black", label="Sol.")
-    ref_data = pd.read_csv("valid_randall/dam_hu%i.csv" % i)
-    pl.scatter(ref_data.x, ref_data.h, color="red", marker=".", label="Ref.")
+    #ref_data = pd.read_csv("valid_randall/dam_hu%i.csv" % i)
+    #pl.scatter(ref_data.x, ref_data.h, color="red", marker=".", label="Ref.")
     pl.title("")
     pl.ylabel(r"$u\,h$")
     pl.xlim(-5, 5)

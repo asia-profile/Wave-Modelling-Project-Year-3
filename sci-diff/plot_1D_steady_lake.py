@@ -32,7 +32,7 @@ shallow = Model(
     boundary_conditions="periodic",
 )
 
-x, dx = np.linspace(-10, 8, 500, retstep=True)
+x, dx = np.linspace(-10, 10, 500, retstep=True) #-10,8,500
 Z = x ** 2 * np.sin(x) + 3 * x + 80
 
 h = 80 - Z

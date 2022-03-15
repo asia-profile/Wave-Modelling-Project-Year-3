@@ -84,7 +84,7 @@ def filter_instabilities(simul):
 # inside the bottom left of the domain being higher that the rest of the
 # domain.
 
-x = y = np.linspace(0, 10, 128)
+x = y = np.linspace(0, 10, 128) #   0, 10, 128
 xx, yy = np.meshgrid(x, y, indexing="ij")
 u = v = np.zeros_like(xx)
 h = np.where(xx ** 2 + yy ** 2 < 5 ** 2, 2, 1)
@@ -99,13 +99,13 @@ fields = shallow_2D.Fields(x=x, y=y, u=u, v=v, h=h, g=9.81)
 # problem  does not need to have a variable time-step, and a properly chosen
 # one will garanty us a good resolution.
 
-simul = shallow_2D.init_simulation(fields, 0.01, tmax=1, time_stepping=False)
+simul = shallow_2D.init_simulation(fields, 0.01, tmax=100, time_stepping=False)
 simul.add_post_process("filter", filter_instabilities)
 container_shallow = simul.attach_container()
 t_max, fields_final = simul.run()
 
 container_shallow.data.h[::20].plot(col="t", col_wrap=3)
-plt.savefig("../docs/_static/2D_dam_break.png")
+plt.savefig("C:/Users/joasi/wavemodelling/2D_dam_break.png_duo")
 ###############################################################################
 # .. image:: ../../_static/2D_dam_break.png
 #

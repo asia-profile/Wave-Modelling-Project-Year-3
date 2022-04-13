@@ -57,6 +57,6 @@ if __name__ == "__main__":
     plt.colorbar()
     plt.xlabel('x')
     plt.ylabel('t')
-    plt.axis('normal')
+    plt.axis('on') #plt.axis('normal')
     plt.title('Korteweg-de Vries on a Periodic Domain')
     plt.show()

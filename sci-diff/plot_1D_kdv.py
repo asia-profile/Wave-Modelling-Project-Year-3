@@ -1,37 +1,22 @@
-r"""
-One dimension Korteweg–de Vries study case.
-===========================================
-
-The `Korteweg–de Vries <https://en.wikipedia.org/wiki/Korteweg%E2%80%93de_Vries_equation>`_
-equation is a non-linear PDE modeling wave on shallow water surfaces.
-It reads
-
-.. math::
-    \frac{\partial U}{\partial t} + U\,\frac{\partial U}{\partial x} = a\,\frac{\partial^2 U}{\partial x^2} + b\,\frac{\partial^3 U}{\partial x^3}
-
-The initial conditions is taken as a smoothed triangle. The discontinuity occuring usually in Burger equation results here
-in a train of capillary wave after the wave front.
-
-This example can be compeared with this `Dedalus Project example <https://dedalus-project.readthedocs
-.io/en/latest/notebooks/dedalus_tutorial_problems_solvers.html>`_ where the same model is solved with
-pseudo-spectral method.
-"""
 
 import numpy as np
 import pylab as pl
 from skfdiff import Model, Simulation
 
-model = Model("-U * dxU + a * dxxU + b * dxxxU", "U(x)", ["a", "b"])
+model = Model("-U * dxU + a * dxxU + b * dxxxU", "U(x)", ["a", "b"],  boundary_conditions="periodic")
 
-x = np.linspace(-2, 6, 1000)
+x = np.linspace(-2, 6, 1000) #was -2 6 1000
 
 n = 20 #was 20 if my memory is good - also used later 10 and 40
 U = np.log(1 + np.cosh(n) ** 2 / np.cosh(n * x) ** 2) / (2 * n) #can start and mess a bit with numbers here, to see on accuracy and time complexity
 
 initial_fields = model.fields_template(x=x, U=U, a=2e-4, b=1e-4)#a=2e-4, b=1e-4)
 
-simulation = Simulation(model, initial_fields, dt=0.25, tmax=10) #tmax: 10,20,30,40,50 dt: 0.05,0.1,0.15,0.2,0.25
+
+simulation = Simulation(model, initial_fields, dt=0.05, tmax=10) #tmax: 10,20,30,40,50 dt: 0.05,0.1,0.15,0.2,0.25
 container = simulation.attach_container()
+
+#print(model.J(initial_fields))
 
 simulation.run()
 (

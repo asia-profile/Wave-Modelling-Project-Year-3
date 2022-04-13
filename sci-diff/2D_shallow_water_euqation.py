@@ -11,7 +11,7 @@ model = Model(["-(dx((H + h) * u) + dy((H + h) * v))",
                parameters=["H(x, y)", "nu", "g"],
                boundary_conditions="periodic")
 
-L = 10
+L = 5 #L = 10
 
 x = y = np.linspace(-L / 2, L / 2, 56)
 
@@ -34,12 +34,12 @@ v = np.zeros_like(h)
 initial_fields = model.Fields(x=x, y=y, h=h, u=u, v=v, H=H, g=9.81, nu=0)
 
 
-simulation = Simulation(model, initial_fields, dt=.1, tmax=1)
+simulation = Simulation(model, initial_fields, dt=.05, tmax=1) #dt=.1 tmax=1
 
 container = simulation.attach_container()
 
 tmax, final_fields = simulation.run()
 
 
-container.data.h[::20].plot(col="t", col_wrap=3)
-pl.savefig("C:/Users/joasi/wavemodelling/2D_shallow_water.png")
+container.data.h[:20].plot(col="t", col_wrap=3) #container.data.h[::20].plot(col="t", col_wrap=3)
+pl.savefig("C:/Users/joasi/wavemodelling/2D_shallow_water_dt_0.05.png")

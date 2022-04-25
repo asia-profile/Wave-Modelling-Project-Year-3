@@ -2,16 +2,6 @@ import numpy as np
 import pylab as pl
 import skfdiff as sf
 from skfdiff import Model, Simulation
-from scipy.ndimage import gaussian_filter
-import math
-
-#shallow_2D = sf.Model(
-#    [
-#        "-dxU - 3*dxU*dyU - dxxxU",
-#        "-dx * U + dy * V"
-#     ],
-#        ["U(x, y)", "V(x, y)"], parameters= ["e"]
-#)
 
 shallow_2D = sf.Model(
     [

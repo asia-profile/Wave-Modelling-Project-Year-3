@@ -6,11 +6,11 @@ from scipy.ndimage import gaussian_filter
 import math
 
 
-shallow_2D = sf.Model("(-U * dxU + e*U*dxU + dxxxU)*dxU - 3*dyyU", #write function here appropriately - is the last part good thou?
+shallow_2D = sf.Model("(e*U*x*dxU - x*dxxxU - 3*dyyU)/x", #rewrite [see the page with equations]]
                       "U(x, y)", ["e"])
 
-x = np.linspace(-2, 6, 10) #1000
-y = np.linspace(2, 6, 10)
+x = np.linspace(-2, 6, 1000)
+y = np.linspace(2, 6, 1000)
 
 n = 10 #20
 U = np.log(1 + np.cosh(n) ** 2 / np.cosh(n * x) ** 2) / (2 * n)

@@ -4,20 +4,32 @@
 import numpy as np
 import pylab as pl
 from skfdiff import Model, Simulation
+import time
+# importing the module
+import tracemalloc
 
-model = Model("-U + a*dxU - b * dxxU", "U(x)", ["a", "b"])
-#model = Model("-dxU - a * U * dxU + b*dxxU ", "U(x)", ["a", "b"])
+time_start = time.perf_counter()
+#run your code
+# starting the monitoring
+tracemalloc.start()
 
-x = np.linspace(-2, 6, 1000) #can start and mess a bit with numbers here, to see on accuracy and time complexity
+#model = Model("-dxU + a*dxU - b * dxxU", "U(x)", ["a", "b"])#to jest dobrze
+#model = Model("-dxU + a * dxU - b*dxxU ", "U(x)", ["a", "b"]) #tego używałam
+#model = Model("(-dxU - a * U * dxU)/(1 + b*dxxU) ", "U(x)", ["a", "b"])
+#model = Model("-dxU + a * U * dxU -b*dxxxU", "U(x)", ["a", "b"])
+model = Model("-dxU - a * U * dxU  + b*dxxU", "U(x)", ["a", "b"])
 
-n = 20 #n=40
+
+x = np.linspace(-2, 6, 1000) # evenly spaced numbers
+
+n = 10 #n=40
 U = np.log(1 + np.cosh(n) ** 2 / np.cosh(n * x) ** 2) / (2 * n)
 
 initial_fields = model.fields_template(x=x, U=U, a=2e-4, b=1e-4) #a=2e-4, b=1e-4)
 
 #print(model.J(initial_fields))
 
-simulation = Simulation(model, initial_fields, dt=0.01, tmax=10) #tmax=10
+simulation = Simulation(model, initial_fields, dt=0.05, tmax=50) #tmax=10
 container = simulation.attach_container()
 
 simulation.run()
@@ -27,3 +39,10 @@ simulation.run()
     )
 )
 pl.show()
+
+time_elapsed = (time.perf_counter() - time_start)
+# displaying the memory
+print(tracemalloc.get_traced_memory())
+
+# stopping the library
+tracemalloc.stop()
